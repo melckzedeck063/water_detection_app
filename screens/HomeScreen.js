@@ -28,16 +28,22 @@ const HomeScreen = () => {
             <View className={`h-full ${Platform.select({android :  'pt-6'})}`}>
               <View style={style.card}  className={`w-10/12 h-24 rounded-lg flex flex-row justify-between px-4 py-4`} >
                 <View className={`flex flex-row space-x-2`}>
-                <Text className="mt-3">  <AntDesign name="caretdown" size={24}  color="#3498DB" className={`mt-3`} /> </Text>
+                  <TouchableOpacity className="">
+                    <Text className="mt-3">  <AntDesign name="caretdown" size={24}  color="#3498DB" className={`mt-3`} /> </Text>
+                  </TouchableOpacity>
                 <View>
                     <Text className={`text-center font-bold py-2 text-sky-600 mt-2`}>HomeScreen</Text>
                     <Text className={`text-center font-bold py-2 text-sky-600 -mt-3`}>HomeScreen</Text>
                 </View>
                 </View>
                  <View className={`flex-row flex justify-between space-x-1`}>
+                  <TouchableOpacity>
                     <Text className={`mt-3`}> <AntDesign name="caretleft" size={24} color="#3498DB" /> </Text>
+                  </TouchableOpacity>
                     <View className={`border-l-2 h-10 border-sky-600 mt-1`}></View>
+                  <TouchableOpacity>                   
                     <Text className={`mt-3`}> <AntDesign name="caretright" size={24} color="#3498DB" /> </Text>
+                  </TouchableOpacity>
                  </View>
               </View>
 
@@ -55,7 +61,7 @@ const HomeScreen = () => {
                     </View>
                     <View className={`my-6`}>
                         <TouchableOpacity style={{alignSelf  : 'center'}} className={`px-3 py-1 w-8/12`}>
-                            <Text className={`text-center font-medium text-sky-600 text-xl ${Platform.select({android : 'text-lg'})}`}>More Details  <FontAwesome name="arrow-circle-right" size={24} color="#3498DB" /></Text>
+                            <Text className={`text-center font-medium text-sky-600 text-xl ${Platform.select({android : 'text-lg'})}`}>More Details  <AntDesign name="caretright" size={18} color="#3498DB" /> </Text>
                         </TouchableOpacity>
                     </View>
                  </View>

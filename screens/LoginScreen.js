@@ -30,8 +30,10 @@ const LoginScreen = () => {
       checkIfTokenExists =  async ()  =>  {
         const  authToken =  await SecureStore.getItemAsync('token');
         if(authToken !== "" || authToken !==  undefined || authToken !== null){
-          console.log(authToken)
-          //  navigation.navigate('HomeTab')
+          // console.log(authToken)
+          setTimeout(() => {
+            navigation.navigate('HomeTab')
+          }, 2000);
         }
         else {
           console.log("nothing to connsole")
