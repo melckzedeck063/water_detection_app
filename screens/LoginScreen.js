@@ -8,6 +8,7 @@ import  { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview
 import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import { signInUser } from '../store/actions/user_actions';
+import  *  as SecureStore from 'expo-secure-store';
 
 
 
@@ -26,10 +27,23 @@ const LoginScreen = () => {
         reValidateMode : "onChange"
       })
 
+      checkIfTokenExists =  async ()  =>  {
+        const  authToken =  await SecureStore.getItemAsync('token');
+        if(authToken !== "" || authToken !==  undefined || authToken !== null){
+          console.log(authToken)
+          //  navigation.navigate('HomeTab')
+        }
+        else {
+          console.log("nothing to connsole")
+        }
+      }
+
+      checkIfTokenExists();
+
       const onSubmit = data => {
-        // console.log(data)
-        dispatch(  signInUser(data) );
-        // navigation.navigate('HomeTab')
+        console.log(data)
+        // dispatch(  signInUser(data) );
+        navigation.navigate('HomeTab')
       }
 
     //   useLayoutEffect(() => 
