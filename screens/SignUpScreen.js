@@ -6,7 +6,7 @@ import { useForm, FormProvider, SubmitHandler, Controller } from 'react-hook-for
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux'
-import { signInUser } from '../store/actions/user_actions';
+import { signInUser, signUpUser } from '../store/actions/user_actions';
 
 
 
@@ -31,7 +31,7 @@ const SignUpScreen = () => {
       const onSubmit = data => {
         //   console.log(data);
         //   dispatch( signUpUser(data) )
-          dispatch( signInUser(data))
+          dispatch( signUpUser(data))
       }
 
     //   useLayoutEffect(() => 

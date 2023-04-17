@@ -1,11 +1,52 @@
-import { View, Text, Platform } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useState,useLayoutEffect } from 'react';
+import { View, StyleSheet, Dimensions, useWindowDimensions, Text, Platform } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { BarChart } from 'react-native-chart-kit';
+// import { useWindowDimensions } from 'react-native-wind';
+
+const screen = Dimensions.get('screen');
+// import React, { useLayoutEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {LinearGradient} from 'expo-linear-gradient'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
+import {responsiveWidth, responsiveHeight} from 'react-native-responsive-dimensions'
+
+
+const data = {
+  labels: ['Temp', 'PH Value', 'Purity', 'Level', 'Particles', 'Jun'],
+  datasets: [
+    {
+      data: [47, 45, 35, 80, 99, 43],
+    },
+  ],
+};
+
 const StatScreen = () => {
 
   const navigation  =   useNavigation();
+
+  const {width, height} = useWindowDimensions()
+  const [selectedDate, setSelectedDate] = useState('');
+
+  // Data for the bar graph
+  
+
+  // Styling options for the bar graph
+  const chartConfig = {
+    backgroundGradientFrom: '#fff',
+    backgroundGradientTo: '#fff',
+    decimalPlaces: 0,
+    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+    style: {
+      borderRadius: 16,
+    },
+  };
+
+  // Callback function to handle date selection in the calendar
+  const handleDateSelect = (date) => {
+    setSelectedDate(date.dateString);
+  };
+
 
   useLayoutEffect(() =>  {
     navigation.setOptions({ 
@@ -21,15 +62,56 @@ const StatScreen = () => {
   })
 
   return (
-    <View>
-      <LinearGradient colors={['#3498DB', 'white']} className={`h-full`} >
-         <View className={``}>
-           <Text className={`font-bold text-white text-xl text-center py-6 ${Platform.select({android : 'text-lg'})}`} >StatScreen</Text>
-
-         </View>
-      </LinearGradient>
+    <View className={'py-2'}>
+     {/* <SafeAreaView  /> */}
+     <View  className={`w-full h-full bg-slate-100 my-4`}>
+        <View style={[styles.card, styles.dateContainer]} className='rounded-xl p-1'>
+          <Calendar onDayPress={handleDateSelect} />
+        {selectedDate !== '' && (
+          <View  className={"my-2"}>
+            <Text className={`text-center text-sky-500 font-bold text-lg ${Platform.select({android  : 'text-sm'})}`}>
+              Selected Date: {selectedDate}
+            </Text>
+          </View>
+        )}
+        </View>
+      <View style={[styles.card, styles.chartContainer]} className={`my-4 rounded-xl p-1 pt-2`}>
+        <BarChart
+          data={data}
+          width={width * 0.9}
+          height={200}
+          chartConfig={chartConfig}
+        />
+      </View>
     </View>
-  )
-}
+    </View>
+  );
+};
 
 export default StatScreen
+
+const styles = StyleSheet.create({
+  card: {
+    elevation : 4,
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset :{width : 0, height : 2} ,
+    shadowOpacity: 0.25,
+    shadowRadius : 8,
+    width  : '92%',
+    alignSelf  : 'center',
+   },
+
+  chartContainer: {
+    height : responsiveHeight(30)
+  },
+  dateContainer  : {
+    height : responsiveHeight(45)
+  },
+  
+  selectedDateText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+

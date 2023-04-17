@@ -8,7 +8,7 @@ import { AUTH_URL, BASE_URL } from '../URL';
 
 export const signInUser  = createAsyncThunk(`/login`, async(values)  =>  {
      try{
-      //   console.log(values)
+        console.log(values)
            const  response =   await axios.post(`${AUTH_URL}/login`, {
             email :  values.username,
             password :   values.password
@@ -27,19 +27,20 @@ export const signInUser  = createAsyncThunk(`/login`, async(values)  =>  {
 export const signUpUser =  createAsyncThunk('/signup', async (values) => {
     try{
       console.log(values)
-         const response =  await axios.post(`${AUTH_URL}/register`, {
+         const response =  await axios.post(`${AUTH_URL}/signup`, {
             firstName  :  values.firstName,
             lastName :   values.lastName,
             email : values.username,
-            phoneNumber :   values.telephone,
-            password :  values.password
+            telephone :   values.telephone,
+            password :  values.password,
+            confirmPassword  :  values.confirmPassword
          })
          await SecureStore.setItemAsync('token', JSON.stringify(response.data));
          console.log(response.data)
          return response.data
     }
     catch(error) {
-      console.log(error.message)
+      console.log(error)
         return error.message
     }
 })

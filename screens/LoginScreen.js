@@ -43,9 +43,9 @@ const LoginScreen = () => {
       checkIfTokenExists();
 
       const onSubmit = data => {
-        console.log(data)
-        // dispatch(  signInUser(data) );
-        navigation.navigate('HomeTab')
+        // console.log(data)
+        dispatch(  signInUser(data) );
+        // navigation.navigate('HomeTab')
       }
 
     //   useLayoutEffect(() => 
