@@ -1,5 +1,5 @@
-import { View, Text, Form, TextInput, useWindowDimensions, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native'
-import React, { useContext, useEffect, useLayoutEffect, useRef } from 'react'
+import { View, Text, Form, TextInput, useWindowDimensions, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform, Modal, StyleSheet } from 'react-native'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useForm, Controller, useController, useWatch } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,6 +9,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import { signInUser } from '../store/actions/user_actions';
 import  *  as SecureStore from 'expo-secure-store';
+import {Ionicons, AntDesign} from '@expo/vector-icons'
 
 
 
@@ -16,6 +17,21 @@ const LoginScreen = () => {
     const navigation = useNavigation();
     const { width, height } = useWindowDimensions();
     const dispatch =  useDispatch();
+    const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  useEffect(() => {
+    if (isModalVisible) {
+      // Automatically close modal after 2 seconds
+      setTimeout(() => {
+        toggleModal();
+        navigation.navigate('HomeTab')
+      }, 2000);
+    }
+  }, [isModalVisible]);
 
 
     const {  handleSubmit,setValue, control, reset, formState: { errors, isValid, isDirty } } = useForm({
@@ -31,9 +47,10 @@ const LoginScreen = () => {
         const  authToken =  await SecureStore.getItemAsync('token');
         if(authToken !== "" || authToken !==  undefined || authToken !== null){
           // console.log(authToken)
-          setTimeout(() => {
-            navigation.navigate('HomeTab')
-          }, 2000);
+          // setTimeout(() => {
+          //   navigation.navigate('HomeTab')
+          // }, 2000);
+          setModalVisible(true)
         }
         else {
           console.log("nothing to connsole")
@@ -66,6 +83,29 @@ const LoginScreen = () => {
      <LinearGradient colors={['transparent', '#3498DB']} >
            <View className={`bg-slatee-900 w-full h-full ${height < 300 ? 'py-2' : 'py-6'} ${Platform.select({ios : 'pb-96', android : "pb-56"})}`}>
           {/* <Text className={`text-sky-600 text-center font-medium text-3xl ${height < 400 ? 'mt-1' : 'mt-24'} `}>Login Screen</Text> */}
+
+          <View style={styles.container}>
+      {/* <TouchableOpacity onPress={toggleModal}>
+        <Text style={styles.button}>Open Modal</Text>
+      </TouchableOpacity> */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={{alignSelf : 'center'}} className={"bg-white p-2 rounded-lg w-10/12 "}>
+            <Text className={`text-center my-1`}>
+               <AntDesign name="checkcircleo" size={64} color="green" /> 
+            </Text>
+            <Text className={`font-medium text-center text-green-700 text-lg ${Platform.select({android  : 'text-sm'})}`}>Successfully Loged In</Text>
+          </View>
+        </View>
+      </Modal>
+    </View>
+
+
         <View className={`mx-auto shadow-md bg-slate-200 rounded-lg ${height < 400 ? 'mt-32 py-1' : 'py-6 mt-52'} ${width < 400 ? 'w-10/12' : 'w-9/12'} px-6`}  style={{alignSelf : 'center'}} >
       <Text className="text-2xl font-medium text-sky-700 text-center" >Sign In</Text>
           <View className="my-2">
@@ -147,3 +187,29 @@ const LoginScreen = () => {
 }
 
 export default LoginScreen
+
+const styles =   StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  button: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#007AFF',
+    padding: 16,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalButton: {
+    fontSize: 18,
+    color: '#007AFF',
+    padding: 16,
+  },
+})

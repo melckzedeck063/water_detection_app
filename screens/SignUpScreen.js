@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import {LinearGradient} from 'expo-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux'
 import { signInUser, signUpUser } from '../store/actions/user_actions';
+import { responsiveHeight } from 'react-native-responsive-dimensions';
 
 
 
@@ -34,24 +35,13 @@ const SignUpScreen = () => {
           dispatch( signUpUser(data))
       }
 
-    //   useLayoutEffect(() => 
-    // {
-    //     navigation.setOptions({
-    //         // headerShown : false,
-    //         headerStyle : {
-    //             backgroundColor : "#161E35"
-    //         },
-    //         headerTintColor : "white"
-    //     })
-    // })
-  
 
 
   return (
+        <LinearGradient style={{height :  responsiveHeight(100)}} colors={['transparent', '#3498DB']} className="h-full" >
     <View className="bg-slatee-900">
       <KeyboardAwareScrollView >
     {/* <View > */}
-        <LinearGradient colors={['transparent', '#3498DB']} className="h-full" >
         <View className={`w-full h-full bg-slatee-900 -mtt-10 ${Platform.select({ios : 'py-32 -mt-20', android : 'py-4'})}`}>
       <View style={{alignSelf : 'center'}} className="bg-slate-200 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
            <Text className={`text-2xl font-medium text-sky-600 text-center ${Platform.select({android : 'text-xl'})}`} >Sign Up</Text>
@@ -205,11 +195,11 @@ const SignUpScreen = () => {
             </View>
          </View> 
         </View>
-          </LinearGradient>
         
     {/* </View> */}
         </KeyboardAwareScrollView>
     </View>
+          </LinearGradient>
   )
 }
 

@@ -80,8 +80,8 @@ export default function BottomNavigator() {
           component={HomeScreen}
         //   options={{ tabBarBadge: 3 }}
         />
-        <Tab.Screen name='Statistics' component={StatScreen} options={{tabBarBadge : 1}} />
-        <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name='History' component={StatScreen} options={{tabBarBadge : 1}} />
+        <Tab.Screen name="Statistics" component={HistoryScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Settings" component={SettingScreen} />
       </Tab.Navigator>
     // </NavigationContainer>
