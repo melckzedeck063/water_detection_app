@@ -28,7 +28,7 @@ const LoginScreen = () => {
       // Automatically close modal after 2 seconds
       setTimeout(() => {
         toggleModal();
-        navigation.navigate('HomeTab')
+        // navigation.navigate('HomeTab')
       }, 2000);
     }
   }, [isModalVisible]);
@@ -45,12 +45,14 @@ const LoginScreen = () => {
 
       checkIfTokenExists =  async ()  =>  {
         const  authToken =  await SecureStore.getItemAsync('token');
-        if(authToken !== "" || authToken !==  undefined || authToken !== null){
+        if(authToken !== "" && authToken !==  undefined && authToken !== null){
           // console.log(authToken)
-          // setTimeout(() => {
-          //   navigation.navigate('HomeTab')
-          // }, 2000);
-          setModalVisible(true)
+          setTimeout(() => {
+            setModalVisible(true)
+          }, 1000);
+          setTimeout(() => {
+            navigation.navigate('HomeTab')
+          }, 3000);
         }
         else {
           console.log("nothing to connsole")
@@ -62,6 +64,10 @@ const LoginScreen = () => {
       const onSubmit = data => {
         // console.log(data)
         dispatch(  signInUser(data) );
+
+        setTimeout(() => {
+          checkIfTokenExists()
+        }, 1000);
         // navigation.navigate('HomeTab')
       }
 
