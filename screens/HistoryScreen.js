@@ -28,6 +28,16 @@ const data = {
 
 const HistoryScreen = () => {
 
+  setTimeout(() => {
+      data[0] = Math.random()*100,
+      data[1]= Math.random()*100,
+      data[2] = Math.random()*100,
+       data[3] = Math.random()*100,
+       data[4] = Math.random()*100,
+       data[5] = Math.random()*100
+     
+ }, 60000);
+
   const navigation =    useNavigation();
 
   useLayoutEffect(() =>  {

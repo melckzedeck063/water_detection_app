@@ -38,7 +38,7 @@ const WelcomeScreen = () => {
       <View className="relative">
         
           <View style={{alignSelf: 'center'}} className={`py-2 bg-sky-600 shadow-md px-2 rounded-xl absolute ${height < 450 ? 'top-3' : 'top-6'} ${width < 380 ? 'w-10/12' : 'w-9/12'}`}>
-           <Text className={`text-xl font-bold text-white my-2 text-center ${ Platform.select({android : 'text-lg'})}`} > Water Tank Detection System </Text>
+           <Text className={`text-xl font-bold text-white my-2 text-center ${ Platform.select({android : 'text-lg'})}`} > Water Tank Purity Detection System </Text>
            <Text className={`my-2 text-sm text-left text-white px-3 ${Platform.select({android : 'text-xs'})}`} >Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat labore ad similique esse ut vitae </Text>
            
         

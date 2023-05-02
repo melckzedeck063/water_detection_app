@@ -24,8 +24,18 @@ const HomeScreen = () => {
 
     const [currentTime, setCurrentTime] = useState(new Date());
     const [progressData, setProgressData] = useState([
-      0.4, 0.6, 0.8, 0.2
+      (Math.random()*1), (Math.random()*1), (Math.random()*1), (Math.random()*1)
     ]);
+
+    setTimeout(() => {
+       setProgressData( progressData => progressData =[
+         Math.random()*1,
+         Math.random()*1,
+         Math.random()*1,
+         Math.random()*1,
+        ]
+       )
+    }, 60000);
   
     useEffect(() => {
       const intervalId = setInterval(() => {
@@ -107,19 +117,19 @@ const HomeScreen = () => {
                     <View className={``}>
                       <View className="flex-row flex justify-between space-x-4 my-1">
                           <Text className={`font-medium  text-xl ${Platform.select({android : 'text-lg'})}`}>Temperature</Text>
-                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${(progressData[0]) * 100}'C`}</Text>
+                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${Math.floor((progressData[0]) * 100)}'C`}</Text>
                       </View>
                       <View className="flex-row flex justify-between space-x-4 my-1">
                           <Text className={`font-medium  text-xl ${Platform.select({android : 'text-lg'})}`}>PH Value</Text>
-                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${(progressData[1]) * 100} %`}</Text>
+                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${Math.floor((progressData[1]) * 100)} %`}</Text>
                       </View>
                       <View className="flex-row flex justify-between space-x-4 my-1">
                           <Text className={`font-medium  text-xl ${Platform.select({android : 'text-lg'})}`}>% Purity</Text>
-                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${(progressData[2]) * 100} %`}</Text>
+                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${Math.floor((progressData[2]) * 100)} %`}</Text>
                       </View>
                       <View className="flex-row flex justify-between space-x-4 my-1">
                           <Text className={`font-medium  text-xl ${Platform.select({android : 'text-lg'})}`}>Water level</Text>
-                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${(progressData[3])* 100} %`}</Text>
+                          <Text className={`text-sky-500 font-bold text-xl ${Platform.select({android : 'text-lg'})}`}>{`${Math.floor((progressData[3])* 100)} %`}</Text>
                       </View>
                     </View>
                     </View>

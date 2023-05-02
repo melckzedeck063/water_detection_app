@@ -9,7 +9,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {useDispatch} from 'react-redux'
 import { signInUser } from '../store/actions/user_actions';
 import  *  as SecureStore from 'expo-secure-store';
-import {Ionicons, AntDesign} from '@expo/vector-icons'
+import {Ionicons, AntDesign, Entypo} from '@expo/vector-icons'
 
 
 
@@ -18,6 +18,7 @@ const LoginScreen = () => {
     const { width, height } = useWindowDimensions();
     const dispatch =  useDispatch();
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isModalVisible1, setModalVisible1] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -59,15 +60,27 @@ const LoginScreen = () => {
         }
       }
 
-      checkIfTokenExists();
+      // checkIfTokenExists();
 
       const onSubmit = data => {
         // console.log(data)
-        dispatch(  signInUser(data) );
+        // dispatch(  signInUser(data) );
+        if(data.username ==="admin1test@gmail.com" && data.password ==="admin123"){
+          setModalVisible(true);
 
-        setTimeout(() => {
-          checkIfTokenExists()
-        }, 1000);
+          setTimeout(() => {
+            navigation.navigate('HomeTab')
+          }, 2500);
+        }else{
+          setModalVisible1(true)
+          setTimeout(() => {
+            setModalVisible1(false)
+          }, 2000);
+        }
+
+        // setTimeout(() => {
+        //   checkIfTokenExists()
+        // }, 1000);
         // navigation.navigate('HomeTab')
       }
 
@@ -106,6 +119,21 @@ const LoginScreen = () => {
                <AntDesign name="checkcircleo" size={64} color="green" /> 
             </Text>
             <Text className={`font-medium text-center text-green-700 text-lg ${Platform.select({android  : 'text-sm'})}`}>Successfully Loged In</Text>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible1}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={{alignSelf : 'center'}} className={"bg-white p-2 rounded-lg w-10/12 "}>
+            <Text className={`text-center my-1`}>
+               <Entypo name="circle-with-cross" size={64} color="red" />
+            </Text>
+            <Text className={`font-medium text-center text-red-400 text-lg ${Platform.select({android  : 'text-sm'})}`}>Invalid  Login Credentials</Text>
           </View>
         </View>
       </Modal>

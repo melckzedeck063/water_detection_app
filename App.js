@@ -11,6 +11,7 @@ import { store } from './store/store';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import BottomNavigator from './components/BottonNavigation';
+import ProfileScreen from './screens/ProfileScreen';
 
 const Stack =   createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +49,9 @@ export default function App() {
         />
         <Stack.Screen  name='Home'  component={HomeScreen} 
            options={{title : 'Home'}}
+        />
+        <Stack.Screen  name='Profile'  component={ProfileScreen} 
+           options={{title : 'Profile'}}
         />
        </Stack.Navigator>
     </NavigationContainer>
