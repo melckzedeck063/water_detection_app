@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import  image1 from '../assets/images/pexels-gabriel-peter-719396.jpg'
+import  image1 from '../assets/images/image2.jpg'
 import image2 from '../assets/images/pexels-pixabay-416528.jpg'
 import { useWindowDimensions } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'

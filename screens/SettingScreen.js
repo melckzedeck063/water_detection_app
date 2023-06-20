@@ -15,6 +15,8 @@ const SettingsScreen = () => {
 //   const handleNotificationsToggle = () => setNotificationsEnabled(!notificationsEnabled);
   const handleLocationToggle = () => setLocationEnabled(!locationEnabled);
   const handleAutoCompleteToggle = () => setAutoCompleteEnabled(!autoCompleteEnabled);
+  const [current_user, setCurrent_user] =  useState(null)
+
 
   const navigation =  useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -23,9 +25,6 @@ const SettingsScreen = () => {
     // Clear the secure store items
     await SecureStore.deleteItemAsync('token');
     // await SecureStore.deleteItemAsync('refreshToken');
-    
-    // Navigate to the login screen
-    // This assumes you are using React Navigation
 
     setTimeout(() => {
       setModalVisible(true)
@@ -61,15 +60,35 @@ const SettingsScreen = () => {
 
   checkIfTokenExists();
   
+  const gettToken =  async () => {
+    const storage = await SecureStore.getItemAsync('token');
+    const user = JSON.parse(storage);
+  
+  if (user.doc.user) {
+    setCurrent_user(user.doc.user);
+  }
+}
+
+useEffect(() => {
+  gettToken();
+}, []);
+
 
 
   const handleToggleNotifications = () => {
     setNotificationsEnabled(!notificationsEnabled);
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-        headerShown : true
+  useLayoutEffect(() =>  {
+    navigation.setOptions({ 
+      headerShown :  true,
+      headerStyle: {
+        backgroundColor: '#3498DB',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     })
   })
 
@@ -96,13 +115,15 @@ const SettingsScreen = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Account</Text>
           <TouchableOpacity style={styles.item}
-            onPress={() => navigation.navigate('Profile') }
+            onPress={() => navigation.navigate("Profile", {current_user}) }
           >
-            <Text style={styles.itemText}>Edit Profile</Text>
+            <Text style={styles.itemText}>Profile</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
-            <Text style={styles.itemText}>Change Password</Text>
+          <TouchableOpacity style={styles.item}  
+             onPress={() =>  navigation.navigate('Measurement')}
+          >
+            <Text style={styles.itemText}>Choose Category</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
         </View>
@@ -123,14 +144,18 @@ const SettingsScreen = () => {
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>About</Text>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item}
+             onPress={() => navigation.navigate("Terms") }
+          >
             <Text style={styles.itemText}>Terms & Conditions</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
+          {/* <TouchableOpacity style={styles.item}
+            onPress={() => navigation.navigate("Policy") }
+          >
             <Text style={styles.itemText}>Privacy Policy</Text>
             <Ionicons name="arrow-forward" size={20} color="#ccc" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity style={styles.item}>
             <Text style={styles.itemText}>App Version</Text>
             <Text style={styles.itemText}>1.0.0</Text>

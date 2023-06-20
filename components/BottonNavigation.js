@@ -8,6 +8,7 @@ import HistoryScreen from '../screens/HistoryScreen';
 import StatScreen from '../screens/StatScreen';
 import SettingScreen from '../screens/SettingScreen';
 import { useLayoutEffect } from 'react';
+import PieChartScreen from '../screens/PieChartScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -80,7 +81,7 @@ export default function BottomNavigator() {
           component={HomeScreen}
         //   options={{ tabBarBadge: 3 }}
         />
-        <Tab.Screen name='History' component={StatScreen} options={{tabBarBadge : 1}} />
+        {/* <Tab.Screen name='History' component={PieChartScreen} options={{tabBarBadge : 1}} /> */}
         <Tab.Screen name="Statistics" component={HistoryScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Settings" component={SettingScreen} />
       </Tab.Navigator>

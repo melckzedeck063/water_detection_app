@@ -15,7 +15,7 @@ export const signInUser  = createAsyncThunk(`/login`, async(values)  =>  {
            })
 
            await SecureStore.setItemAsync('token', JSON.stringify(response.data));
-         //   console.log(response.data)
+           console.log(response.data)
           return response.data 
      }
      catch(error){

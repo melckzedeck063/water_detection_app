@@ -64,26 +64,29 @@ const LoginScreen = () => {
 
       const onSubmit = data => {
         // console.log(data)
-        // dispatch(  signInUser(data) );
-        if(data.username ==="admin1test@gmail.com" && data.password ==="admin123"){
-          setModalVisible(true);
+        dispatch(  signInUser(data) );
+        // if(data.username ==="admin1test@gmail.com" && data.password ==="admin123"){
+        //   setModalVisible(true);
 
-          setTimeout(() => {
-            navigation.navigate('HomeTab')
-          }, 2500);
-        }else{
-          setModalVisible1(true)
-          setTimeout(() => {
-            setModalVisible1(false)
-          }, 2000);
-        }
+        //   setTimeout(() => {
+        //     navigation.navigate('HomeTab')
+        //   }, 2500);
+        // }else{
+        //   setModalVisible1(true)
+        //   setTimeout(() => {
+        //     setModalVisible1(false)
+        //   }, 2000);
+        // }
 
-        // setTimeout(() => {
-        //   checkIfTokenExists()
-        // }, 1000);
+         setTimeout(() => {
+          checkIfTokenExists()
+         }, 4000);
         // navigation.navigate('HomeTab')
       }
 
+      useEffect(() => {
+        checkIfTokenExists()
+      },[])
     //   useLayoutEffect(() => 
     // {
     //     navigation.setOptions({

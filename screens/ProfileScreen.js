@@ -1,6 +1,6 @@
 import { View, Text, useWindowDimensions, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
-import React, { useEffect, useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useLayoutEffect , useState} from 'react'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useForm, FormProvider, SubmitHandler, Controller } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers/yup'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
@@ -16,15 +16,19 @@ const ProfileScreen = () => {
     const navigation = useNavigation();
     const { width, height } = useWindowDimensions();
     const dispatch =    useDispatch();
+    const { params : {current_user}  }  =  useRoute()
+    const [reload, setReload] =  useState(0);
+    
+    // console.log(current_user)
+
 
     const { register, reset, control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
         defaultValues :  {
-          password : "",
-          confirmPassword : "",
-          username : "",
-          firstName : "",
-          lastName : "",
-          telephone : ""
+          user_role : current_user.role,
+          username : current_user.email,
+          firstName : current_user.firstName,
+          lastName : current_user.lastName,
+          telephone : current_user.telephone
         },
           mode: 'all',
       })
@@ -42,9 +46,9 @@ const ProfileScreen = () => {
     <View className="bg-slatee-900">
       <KeyboardAwareScrollView >
     {/* <View > */}
-        <View className={`w-full h-full bg-slatee-900 -mtt-10 ${Platform.select({ios : 'py-32 -mt-20', android : 'py-4'})}`}>
-      <View style={{alignSelf : 'center'}} className="bg-slate-200 shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
-           <Text className={`text-2xl font-medium text-sky-600 text-center ${Platform.select({android : 'text-xl'})}`} >Edit Profile</Text>
+        <View className={`w-full h-full bg-slatee-900 -mtt-10 ${Platform.select({ios : 'py-32 -mt-4', android : 'py-4'})}`}>
+      <View style={{alignSelf : 'center'}} className="bg-slate-200  shadow-md rounded-lg px-4 py-5 w-10/12 my-3">
+           <Text className={`text-2xl font-medium text-sky-600  text-center ${Platform.select({android : 'text-xl'})}`} >Edit Profile</Text>
       <View className="my-2">
        <Text className={`text-lg text-sky-600 ${Platform.select({android : 'text-sm'})}`} >FirstName</Text>
         <Controller
@@ -128,7 +132,7 @@ const ProfileScreen = () => {
       />
       {  errors.telephone && <Text className="text-red-400" > {errors.telephone.message} </Text>}
             </View>
-      <View className="my-2">
+      {/* <View className="my-2">
        <Text className={`text-lg text-sky-600 ${Platform.select({android : 'text-sm'})}`} >Password</Text>
        <Controller
         control={control}
@@ -177,14 +181,15 @@ const ProfileScreen = () => {
         name="confirmPassword"
       />
       {errors.confirmPassword && <Text className="text-red-400"> {errors.confirmPassword.message} </Text>}
-                  </View>
-                  <View>
+                  </View> */}
+                  <View className="my-6"></View>
+                  {/* <View>
              <TouchableOpacity className="bg-sky-600 rounded-md px-2 py-1 my-3"
                onPress={handleSubmit(onSubmit)}
              >
                 <Text className={`text-2xl font-medium text-white text-center ${Platform.select({android : 'text-lg'})}`}>Submit</Text>
              </TouchableOpacity>
-        </View>
+        </View> */}
             {/* <View className="mt-1" >
             
              <TouchableOpacity className="rounded-md px-2 py-1 hover:text-sky-300"
